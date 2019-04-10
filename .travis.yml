@@ -1,12 +1,10 @@
 sudo: required
 
-before_script:
-  - cd frontend
-
 services:
   - docker
 
 before_install:
+  - cd frontend
   - docker build -t grovejam/docker-kubernetes -f Dockerfile.dev ./
 
 script:
