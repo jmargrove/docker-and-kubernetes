@@ -5,5 +5,8 @@ services:
 before_install:
   - docker build -t grovejam/docker-kubernetes -f Dockerfile.dev ./
 
+before_script:
+  - cd frontend
+
 script:
   - docker run grovejam/docker-kubernetes npm run test -- --coverage
