@@ -3,7 +3,7 @@
     "nodemon": "1.18.3",
     "redis": "2.8.0"
   },
-  "script": {
+  "scripts": {
     "start": "node index.js",
     "dev": "nodemon"
   }

@@ -2,10 +2,13 @@ import React, { Component } from "react"
 import axios from "axios"
 
 class Fib extends Component {
-  state = {
-    seenIndexes: [],
-    values: {},
-    index: ""
+  constructor() {
+    super()
+    this.state = {
+      seenIndexes: [],
+      values: {},
+      index: ""
+    }
   }
 
   componentDidMount() {
@@ -25,15 +28,16 @@ class Fib extends Component {
     })
   }
 
-  renderSeenIndexes() {
-    return this.state.seenIndexes.map(({ number }) => number).join(", ")
+  renderSeenIndexes = () => {
+    const res = this.state.seenIndexes.map(({ number }) => number).join(", ")
+    return res
   }
 
-  renderValues() {
+  renderValues = () => {
     const entries = []
     for (let key in this.state.values) {
       entries.push(
-        <div>
+        <div key={key}>
           For index {key} I calculated {this.state.values[key]}
         </div>
       )
@@ -54,7 +58,7 @@ class Fib extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <lable>Enter your index:</lable>
+          <label>Enter your index:</label>
           <input
             value={this.state.index}
             onChange={event => this.setState({ index: event.target.value })}
@@ -63,8 +67,8 @@ class Fib extends Component {
         </form>
         <h3>Indexes I have seen:</h3>
         {this.renderSeenIndexes()}
-        <h3>Calculated values </h3>
-        {this.renderValues}
+        <h3>Calculated values: </h3>
+        {this.renderValues()}
       </div>
     )
   }

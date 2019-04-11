@@ -1,0 +1,35 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t grovejam/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run grovejam/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t grovejam/multi-client ./client
+  - docker build -t grovejam/multi-nginx ./nginx
+  - docker build -t grovejam/multi-server ./server
+  - docker build -t grovejam/multi-worker ./worker
+  # Logs in to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Takes container images and pushes them to docker hub
+  - docker push grovejam/multi-client
+  - docker push grovejam/multi-nginx
+  - docker push grovejam/multi-server
+  - docker push grovejam/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-central-1
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-eu-central-1-702262436747
+  bucket_path: docker-multi
+  on:
+    branch: master
+    access_key_if: $AWS_ACCESS_KEY
+    secret_access_key:
+      secure: $AWS_SECRET_KEY
