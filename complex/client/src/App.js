@@ -1,9 +1,9 @@
-import React, { Component } from "react"
-import logo from "./logo.svg"
-import "./App.css"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import Fib from "./Fib"
-import OtherPage from "./OtherPage"
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import OtherPage from './OtherPage';
+import Fib from './Fib';
 
 class App extends Component {
   render() {
@@ -11,9 +11,9 @@ class App extends Component {
       <Router>
         <div className="App">
           <header className="App-header">
-            <h1>Fib</h1>
             <img src={logo} className="App-logo" alt="logo" />
-            <Link to="/"> Home</Link>
+            <h1 className="App-title">Fib Calculator version 2</h1>
+            <Link to="/">Home</Link>
             <Link to="/otherpage">Other Page</Link>
           </header>
           <div>
@@ -22,8 +22,8 @@ class App extends Component {
           </div>
         </div>
       </Router>
-    )
+    );
   }
 }
 
-export default App
+export default App;
